@@ -1,0 +1,127 @@
+.menu-control {
+  background-color: #e7eef4;
+  min-height: 100vh;
+  height: max-content;
+  h1 { color: #486483; }
+  .menu-button {
+    background-color: #486487;
+    border-color: #486487;
+    color: #fff;
+    &:hover {
+      background-color: #587caa;
+      border-color: #587caa;
+
+    }
+  }
+}
+h4 {
+  color: #486483;
+  font-weight: 100;
+  letter-spacing: 0.05rem;
+}
+
+.menu-items {
+  .item {
+    background-color: #e3f4f7;
+    color: #486483;
+    border: 1px solid #75cad8;
+    cursor: move;
+    &:hover,&:focus { background-color: #dbe9ec; }
+
+  }
+}
+.menu-items-list {
+  .item {
+    position: relative;
+    transform: translate3d(0, 0, 0);
+    a:hover {
+      color: #75cad8;
+      cursor: pointer;
+    }
+    .fa-trash-alt {
+      cursor: pointer;
+      position: absolute;
+      right: 10px;
+      top: calc(50% - 8px);
+      &:hover { color: #a80202; }
+    }
+  }
+}
+
+.menu-main-content {
+  position: relative;
+  &::-webkit-scrollbar {
+    width: 3px;
+  }
+  &::-webkit-scrollbar-track {
+    background: #e3f4f7;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #75cad847;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: #75cad8;
+  }
+  .menu-save-button {
+    position: absolute;
+    top: 0.5rem;
+    right: 1rem;
+    letter-spacing: 0.08rem;
+    width: 150px;
+  }
+}
+
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+  0 8px 10px 1px rgba(0, 0, 0, 0.14),
+  0 3px 14px 2px rgba(0, 0, 0, 0.12);
+  //background-color: #e3f4f7;
+  //color: #486483;
+  //border: 1px solid #75cad8;
+  opacity: 0.4;
+  list-style: none;
+}
+
+.example-box:last-child {
+  border: none;
+}
+
+.example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.cdk-drag-placeholder {
+  display: none;
+}
+
+.drop-inside {
+  border: 1px solid #00f;
+}
+
+.drop-before {
+  border-top: 1px solid #00f;
+}
+
+.drop-after {
+  border-bottom: 1px solid #00f;
+}
+
+.node-list-title,
+.node-title {
+  padding:15px;
+  margin: 5px;
+  background: #eee;
+  cursor: grab;
+}
+
+.node-children {
+  position: relative;
+  transition: height 0.2s;
+  margin-left: 40px;
+}
+.item-notes {
+  margin-left:20px;
+  color:#aaa;
+}

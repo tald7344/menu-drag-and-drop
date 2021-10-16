@@ -1,0 +1,82 @@
+<div class="menu-control py-5">
+  <div class="col-12 col-md-8 mx-auto">
+    <h1 class="text-center mb-4">Menu Control</h1>
+    <div class="row">
+      <div class="col-12 mb-4">
+        <ng-container *ngIf="!activeUpdate">
+          <form [formGroup]="menuItems" (ngSubmit)="newItem()">
+            <div class="form-row">
+              <div class="col-5">
+                <input type="text" formControlName="name" class="form-control" placeholder="Item Name">
+              </div>
+              <div class="col-5">
+                <input type="text" formControlName="link" class="form-control" placeholder="Item Link">
+              </div>
+              <div class="col-2">
+                <input type="submit" class="btn btn-block menu-button" value="Create">
+              </div>
+            </div>
+          </form>
+        </ng-container>
+        <ng-container *ngIf="activeUpdate">
+          <form [formGroup]="menuItems" (ngSubmit)="updateItem($event)">
+            <div class="form-row">
+              <div class="col-5">
+                <input type="text" formControlName="name" class="form-control" placeholder="Item Name">
+              </div>
+              <div class="col-5">
+                <input type="text" formControlName="link" class="form-control" placeholder="Item Link">
+              </div>
+              <div class="col-2">
+                <input type="submit" class="btn btn-block menu-button" value="Update">
+              </div>
+            </div>
+          </form>
+        </ng-container>
+      </div>
+
+      <!--Main Content-->
+      <div class="col-12 col-md-11 mx-auto bg-white menu-main-content">
+        <div class="menu-main-content-wrapper"
+             cdkDropList
+             #dropTargetIds="cdkDropList"
+             [cdkDropListData]="nodes"
+             [id]="'main'"
+             (cdkDropListDropped)="drop($event)"
+             [cdkDropListSortingDisabled]="true">
+          <h4 class="py-2 px-3">Menu Main Content</h4>
+          <div class="menu-items" *ngFor="let node of nodes" cdkDrag [cdkDragData]="node?.itemId"
+               (cdkDragMoved)="dragMoved($event)">
+            <ng-container *ngTemplateOutlet="tmplNode,context:{node:node}"></ng-container>
+          </div>
+          <button type="button" class="btn menu-button menu-save-button" (click)="saveMenu()">Save Menu</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #tmplNode let-node="node">
+  <div class="node-item menu-items-list" [attr.data-id]="node.itemId" [attr.id]="'node-'+node.itemId">
+    <div class="item mb-3 py-3 px-4 rounded node-title" (click)="node.isExpanded=!node.isExpanded">
+      <i class="fas fa-grip-vertical fa-fw"></i>
+      {{node?.children?.length ? (node.isExpanded?'-&nbsp;':'+') : '&nbsp;&nbsp;&nbsp;'}} &nbsp;&nbsp;&nbsp;
+      <a (click)="selectItemToUpdate(node)">{{node.name}} - {{node.itemId}}</a>
+      <i class="fa fa-trash-alt fa-fw" (click)="deleteItem('delete', node.id)"></i>
+    </div>
+    <div *ngIf="node.isExpanded && node?.children?.length" class="node-children"
+         cdkDropList [cdkDropListData]="node?.children"
+         [id]="node.itemId" [cdkDropListConnectedTo]="[dropTargetIds]"
+         (cdkDropListDropped)="drop($event)"
+         [cdkDropListSortingDisabled]="true">
+
+      <div *ngFor="let child of node?.children" cdkDrag [cdkDragData]="child.itemId"
+           (cdkDragMoved)="dragMoved($event)">
+        <ng-container *ngTemplateOutlet="tmplNode,context:{node:child}"></ng-container>
+      </div>
+
+    </div>
+  </div>
+</ng-template>
+
+

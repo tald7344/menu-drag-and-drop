@@ -1,0 +1,24 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">Talal</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mx-auto">
+      <li class="nav-item" *ngFor="let item of menus">
+        <a *ngIf="!item?.children?.length" class="nav-link" routerLink="{{item.link}}">{{item.name}}</a>
+        <a *ngIf="item?.children?.length" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{item.name}}
+        </a>
+        <div *ngIf="item?.children?.length" class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{{childItem.link}}" *ngFor="let childItem of item.children">
+            {{childItem.name}}</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+
+<h1 class="text-center text-muted">Menu Drag And Drop</h1>
